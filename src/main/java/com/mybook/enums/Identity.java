@@ -7,9 +7,9 @@ public enum Identity {
     STUDENT(2),
     //管理员身份
     ADMIN(3);
-    public Integer dentity;
+ private Integer density;
 
-    Identity(Integer dentity) {
-        this.dentity = dentity;
+    Identity(Integer density) {
+        this.density = density;
     }
 }
