@@ -99,7 +99,7 @@ c3p0 -->
   </dependencies>
 
   <build>
-    <finalName>crm</finalName>
+    <finalName>mybook</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -121,14 +121,14 @@ c3p0 -->
           <overwrite>true</overwrite>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <!-- 如果没有该配置，热部署的devtools不生效 -->
-          <fork>true</fork>
-        </configuration>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-ma2ven-plugin</artifactId>-->
+<!--        <configuration>-->
+<!--          &lt;!&ndash; 如果没有该配置，热部署的devtools不生效 &ndash;&gt;-->
+<!--          <fork>true</fork>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
     </plugins>
   </build>
 </project>
