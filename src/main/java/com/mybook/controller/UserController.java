@@ -17,5 +17,12 @@ public class UserController {
     public void test5(){
         System.out.println("第二次哇咔咔");
     }
+    public void test6(){
+        System.out.println("第二次哇咔咔");
+    }  public void test7(){
+        System.out.println("第二次哇咔咔");
+    }  public void test8(){
+        System.out.println("第二次哇咔咔");
+    }
 }
 
