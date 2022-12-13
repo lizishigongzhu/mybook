@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybook.dao.RecordMapper" >
+  <resultMap id="BaseResultMap" type="com.mybook.vo.Record" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="b_id" property="bId" jdbcType="INTEGER" />
+    <result column="r_borrowtime" property="rBorrowtime" jdbcType="TIMESTAMP" />
+    <result column="r_returntime" property="rReturntime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, u_id, b_id, r_borrowtime, r_returntime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_record
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_record
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mybook.vo.Record" >
+    insert into t_record (r_id, u_id, b_id, 
+      r_borrowtime, r_returntime)
+    values (#{rId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{bId,jdbcType=INTEGER}, 
+      #{rBorrowtime,jdbcType=TIMESTAMP}, #{rReturntime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mybook.vo.Record" >
+    insert into t_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="rBorrowtime != null" >
+        r_borrowtime,
+      </if>
+      <if test="rReturntime != null" >
+        r_returntime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="bId != null" >
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="rBorrowtime != null" >
+        #{rBorrowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rReturntime != null" >
+        #{rReturntime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mybook.vo.Record" >
+    update t_record
+    <set >
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="bId != null" >
+        b_id = #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="rBorrowtime != null" >
+        r_borrowtime = #{rBorrowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rReturntime != null" >
+        r_returntime = #{rReturntime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mybook.vo.Record" >
+    update t_record
+    set u_id = #{uId,jdbcType=INTEGER},
+      b_id = #{bId,jdbcType=INTEGER},
+      r_borrowtime = #{rBorrowtime,jdbcType=TIMESTAMP},
+      r_returntime = #{rReturntime,jdbcType=TIMESTAMP}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+
+  <!-- 添加借阅记录-->
+  <insert id="insertRecord" parameterType="record">
+    insert into
+        t_record(u_id,b_id,r_borrowtime)
+    values
+        (#{uId},#{bId},#{rBorrowtime})
+  </insert>
+  <!--查询借阅记录 集合-->
+  <select id="qureyRecordsByUidAndBid" resultType="com.mybook.vo.Record">
+    select
+        *
+    from
+        t_record
+    where
+        u_id = #{uId} and b_id=#{bId}
+  </select>
+  <!--查询借阅记录-->
+    <select id="qureyRecordByRid" resultType="com.mybook.vo.Record">
+      select
+        *
+        from
+          t_record
+        where
+        r_id = #{rId}
+    </select>
+</mapper>

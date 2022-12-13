@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybook.dao.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.mybook.vo.Book" >
+    <id column="b_id" property="bId" jdbcType="INTEGER" />
+    <result column="b_name" property="bName" jdbcType="VARCHAR" />
+    <result column="b_author" property="bAuthor" jdbcType="VARCHAR" />
+    <result column="cb_id" property="cbId" jdbcType="VARCHAR" />
+    <result column="b_state" property="bState" jdbcType="INTEGER" />
+    <result column="b_presshouse" property="bPresshouse" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    b_id, b_name, b_author, cb_id, b_state, b_presshouse
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_book
+    where b_id = #{bId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_book
+    where b_id = #{bId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mybook.vo.Book" >
+    insert into t_book (b_id, b_name, b_author, 
+      cb_id, b_state, b_presshouse
+      )
+    values (#{bId,jdbcType=INTEGER}, #{bName,jdbcType=VARCHAR}, #{bAuthor,jdbcType=VARCHAR}, 
+      #{cbId,jdbcType=VARCHAR}, #{bState,jdbcType=INTEGER}, #{bPresshouse,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mybook.vo.Book" >
+    insert into t_book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="bName != null" >
+        b_name,
+      </if>
+      <if test="bAuthor != null" >
+        b_author,
+      </if>
+      <if test="cbId != null" >
+        cb_id,
+      </if>
+      <if test="bState != null" >
+        b_state,
+      </if>
+      <if test="bPresshouse != null" >
+        b_presshouse,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="bName != null" >
+        #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bAuthor != null" >
+        #{bAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="cbId != null" >
+        #{cbId,jdbcType=VARCHAR},
+      </if>
+      <if test="bState != null" >
+        #{bState,jdbcType=INTEGER},
+      </if>
+      <if test="bPresshouse != null" >
+        #{bPresshouse,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mybook.vo.Book" >
+    update t_book
+    <set >
+      <if test="bName != null" >
+        b_name = #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bAuthor != null" >
+        b_author = #{bAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="cbId != null" >
+        cb_id = #{cbId,jdbcType=VARCHAR},
+      </if>
+      <if test="bState != null" >
+        b_state = #{bState,jdbcType=INTEGER},
+      </if>
+      <if test="bPresshouse != null" >
+        b_presshouse = #{bPresshouse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where b_id = #{bId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mybook.vo.Book" >
+    update t_book
+    set b_name = #{bName,jdbcType=VARCHAR},
+      b_author = #{bAuthor,jdbcType=VARCHAR},
+      cb_id = #{cbId,jdbcType=VARCHAR},
+      b_state = #{bState,jdbcType=INTEGER},
+      b_presshouse = #{bPresshouse,jdbcType=VARCHAR}
+    where b_id = #{bId,jdbcType=INTEGER}
+  </update>
+  <!--更新状态码 借阅-->
+  <update id="updateBState" parameterType="integer">
+    update
+        t_book
+    set
+        b_state = 2
+    where
+        b_id = #{bId}
+  </update>
+  <!--更新状态码 还书-->
+  <update id="updateBState1" parameterType="integer">
+    update
+      t_book
+    set
+      b_state = 1
+    where
+      b_id = #{bId}
+  </update>
+  <!--更新状态码 挂失-->
+  <update id="updateBState2" parameterType="integer">
+    update
+      t_book
+    set
+      b_state = 3
+    where
+      b_id = #{bId}
+  </update>
+
+  <!--通过书本id查询-->
+  <select id="queryBookById" resultType="com.mybook.vo.Book">
+    select
+        *
+    from
+        t_book
+    where
+        b_id = #{bId}
+  </select>
+
+</mapper>

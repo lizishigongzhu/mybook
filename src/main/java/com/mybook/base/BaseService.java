@@ -13,7 +13,7 @@ import java.util.Map;
 public abstract class BaseService<T,ID> {
 
     @Autowired
-    private com.yjx.crm.base.BaseMapper<T,ID> baseMapper;
+    private com.mybook.base.BaseMapper<T,ID> baseMapper;
 
     /**
      * 添加记录返回行数
@@ -64,7 +64,7 @@ public abstract class BaseService<T,ID> {
      * @param baseQuery
      * @return
      */
-    public List<T> selectByParams(com.yjx.crm.base.BaseQuery baseQuery) throws DataAccessException{
+    public List<T> selectByParams(com.mybook.base.BaseQuery baseQuery) throws DataAccessException{
         return baseMapper.selectByParams(baseQuery);
     }
 
@@ -107,7 +107,7 @@ public abstract class BaseService<T,ID> {
     }
 
 
-    public Map<String, Object> queryByParamsForTable(com.yjx.crm.base.BaseQuery baseQuery) {
+    public Map<String, Object> queryByParamsForTable(com.mybook.base.BaseQuery baseQuery) {
         Map<String,Object> result = new HashMap<String,Object>();
         PageHelper.startPage(baseQuery.getPage(),baseQuery.getLimit());
         PageInfo<T> pageInfo =new PageInfo<T>(selectByParams(baseQuery));
