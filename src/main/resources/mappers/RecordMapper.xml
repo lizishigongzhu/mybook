@@ -116,4 +116,13 @@
         where
         r_id = #{rId}
     </select>
+<!-- 更新记录 -->
+  <update id="updateRecord" parameterType="record">
+    update
+        t_record
+    set
+        r_returntime = #{rReturntime}
+    where
+        r_id =#{rId}
+  </update>
 </mapper>

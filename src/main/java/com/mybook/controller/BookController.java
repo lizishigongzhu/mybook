@@ -28,11 +28,8 @@ public class BookController extends BaseController {
      */
     @PostMapping("borrow")
     @ResponseBody
-    public ResultInfo borrowBook(Integer bId,HttpServletRequest request){
-        // 获取cookie中的用户Id
-        Integer uId = LoginUserUtil.releaseUserIdFromCookie(request);
-        bookService.borrowBook(bId,uId);
-        return success("借阅成功");
+    public ResultInfo borrowBook(Integer bId,Integer uId){
+        return  bookService.borrowBook(bId,uId);
     }
 
     /**
@@ -40,10 +37,8 @@ public class BookController extends BaseController {
      */
     @PostMapping("return")
     @ResponseBody
-    public ResultInfo returnBook(Integer bId,HttpServletRequest request){
-        Integer uId = LoginUserUtil.releaseUserIdFromCookie(request);
-        bookService.returnBook(bId,uId);
-        return success("还书成功");
+    public ResultInfo returnBook(Integer bId,Integer uId){
+        return bookService.returnBook(bId,uId);
     }
 
     /**
@@ -51,9 +46,7 @@ public class BookController extends BaseController {
      */
     @PostMapping("lossOf")
     @ResponseBody
-    public ResultInfo lossOf(Integer bId,HttpServletRequest request){
-        // 获取cookie中的用户Id
-        Integer uId = LoginUserUtil.releaseUserIdFromCookie(request);
+    public ResultInfo lossOf(Integer bId,Integer uId){
         //查询用户信息
         User user = userService.queryUserByUid(uId);
         //判断身份
@@ -64,17 +57,15 @@ public class BookController extends BaseController {
             return resultInfo;
         }
         //调用Service方法
-        bookService.lossOf(bId);
-        return success("操作成功");
+        return bookService.lossOf(bId);
     }
+
     /**
      * 追回（管理员）
      */
     @PostMapping("recover")
     @ResponseBody
-    public ResultInfo recover(Integer bId,HttpServletRequest request){
-        // 获取cookie中的用户Id
-        Integer uId = LoginUserUtil.releaseUserIdFromCookie(request);
+    public ResultInfo recover(Integer bId,Integer uId){
         //查询用户信息
         User user = userService.queryUserByUid(uId);
         //判断身份
@@ -85,8 +76,8 @@ public class BookController extends BaseController {
             return resultInfo;
         }
         //调用Service方法
-        bookService.recover(bId);
-        return success("操作成功");
+
+        return bookService.recover(bId);
     }
 
     /**
@@ -94,9 +85,7 @@ public class BookController extends BaseController {
      */
     @PostMapping("overdue")
     @ResponseBody
-    public ResultInfo overdue(Integer rId,HttpServletRequest request){
-        // 获取cookie中的用户Id
-        Integer uId = LoginUserUtil.releaseUserIdFromCookie(request);
+    public ResultInfo overdue(Integer rId,Integer uId){
         //查询用户信息
         User user = userService.queryUserByUid(uId);
         //判断身份
@@ -107,8 +96,7 @@ public class BookController extends BaseController {
             return resultInfo;
         }
         //调用Service方法
-        bookService.overdue(rId);
-        return success("操作成功");
+        return bookService.overdue(rId);
     }
 
 

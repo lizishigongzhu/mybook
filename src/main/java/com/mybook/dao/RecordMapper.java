@@ -12,4 +12,6 @@ public interface RecordMapper extends BaseMapper<Record,Integer> {
     List<Record> qureyRecordsByUidAndBid(Integer uId,Integer bId);//根据用户id和图书id查询记录 返回记录的集合
 
     Record qureyRecordByRid(Integer rId);//根据记录id查询记录
+
+    Integer updateRecord(Record record);//更新记录
 }

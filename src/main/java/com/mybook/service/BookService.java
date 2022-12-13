@@ -9,6 +9,8 @@ import com.mybook.vo.Book;
 import com.mybook.vo.Record;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -40,6 +42,7 @@ public class BookService extends BaseService<Book,Integer> {
      * 添加借书记录
      * 6.返回resultinfo对象
      */
+    @Transactional(propagation = Propagation.REQUIRED)
     public ResultInfo borrowBook(Integer bId,Integer uId){
         ResultInfo resultInfo = new ResultInfo();
         //非空判断 图书id不为空
@@ -69,7 +72,7 @@ public class BookService extends BaseService<Book,Integer> {
         //添加借书记录
         //设置记录对象
         Record record = new Record();
-        record.setbId(uId);
+        record.setuId(uId);
         record.setbId(bId);
         record.setrBorrowtime(new Date());
         //判断影响行数
@@ -99,6 +102,7 @@ public class BookService extends BaseService<Book,Integer> {
      * 	6.调用dao层更改数据库中图书的状态码
      * 	7.返回resultinfo对象
      */
+    @Transactional(propagation = Propagation.REQUIRED)
     public ResultInfo returnBook(Integer bId,Integer uId){
         ResultInfo resultInfo = new ResultInfo();
         //非空判断 图书id不为空
@@ -110,7 +114,7 @@ public class BookService extends BaseService<Book,Integer> {
         //状态码判断（1在库 2已借出 3书本丢失）
         if (book.getbState()==1){
             resultInfo.setCode(500);
-            resultInfo.setMsg("图示状态异常，还书失败");
+            resultInfo.setMsg("图书状态异常，还书失败");
             return resultInfo;
         }else if (book.getbState()==3){
             resultInfo.setCode(500);
@@ -148,12 +152,19 @@ public class BookService extends BaseService<Book,Integer> {
                     return resultInfo;
                 }
                 //未逾期 更改状态码
-                if (bookMapper.updateBState(uId) < 1){
+                if (bookMapper.updateBState1(uId) < 1){
                     resultInfo.setCode(600);
                     resultInfo.setMsg("图书状态更新失败");
                     return resultInfo;
                 }
+                //更新记录
+                if (recordMapper.updateRecord(re) < 1){
+                    resultInfo.setCode(600);
+                    resultInfo.setMsg("记录更新失败");
+                    return resultInfo;
+                }
                 resultInfo.setMsg("还书成功");
+                return resultInfo;
             }
         }
         resultInfo.setMsg("未查询到未归还记录，还书失败");
@@ -172,6 +183,7 @@ public class BookService extends BaseService<Book,Integer> {
      * 	4.调用更新方法 返回影响行数
      * 	5.返回resultinfo
      */
+    @Transactional(propagation = Propagation.REQUIRED)
     public ResultInfo lossOf(Integer bId){
         ResultInfo resultInfo = new ResultInfo();
         //调用dao层方法 根据图书id查询，返回书本对象
@@ -205,6 +217,7 @@ public class BookService extends BaseService<Book,Integer> {
      * 	4.调用更新方法 返回影响行数
      * 	5.返回resultinfo
      */
+    @Transactional(propagation = Propagation.REQUIRED)
     public ResultInfo recover(Integer bId){
         ResultInfo resultInfo = new ResultInfo();
         //调用dao层方法 根据图书id查询，返回书本对象
@@ -237,6 +250,7 @@ public class BookService extends BaseService<Book,Integer> {
      * 	4.调用更新方法 返回影响行数
      * 	5.返回resultinfo
      */
+    @Transactional(propagation = Propagation.REQUIRED)
     public ResultInfo overdue(Integer rId){
         ResultInfo resultInfo = new ResultInfo();
         //调用dao层方法查询 借书记录

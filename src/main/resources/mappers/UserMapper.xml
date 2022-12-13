@@ -7,7 +7,7 @@
     <result column="u_pwd" property="uPwd" jdbcType="VARCHAR" />
     <result column="c_id" property="cId" jdbcType="INTEGER" />
     <result column="u_phone" property="uPhone" jdbcType="VARCHAR" />
-    <result column="u_e-mil" property="uEMil" jdbcType="VARCHAR" />
+    <result column="u_e-mil" property="uEmil" jdbcType="VARCHAR" />
     <result column="u_profession" property="uProfession" jdbcType="VARCHAR" />
     <result column="u_head" property="uHead" jdbcType="VARCHAR" />
   </resultMap>
