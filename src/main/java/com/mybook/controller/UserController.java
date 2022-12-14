@@ -3,6 +3,7 @@ package com.mybook.controller;
 import com.mybook.base.BaseController;
 import com.mybook.base.ResultInfo;
 import com.mybook.model.UserModel;
+import com.mybook.query.UserQuery;
 import com.mybook.service.UserService;
 import com.mybook.utils.LoginUserUtil;
 import com.mybook.vo.User;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @Controller
 @RequestMapping("user")
@@ -20,6 +22,14 @@ public class UserController extends BaseController {
     @Resource
     private UserService userService;
 
+    /**
+     * 多条件查询⽤户数据
+     */
+    @RequestMapping("user/list")
+    @ResponseBody
+    public Map<String, Object> queryUserByParams(UserQuery userQuery) {
+        return userService.queryUserByParams(userQuery);
+    }
 
     /**
      * 用户添加

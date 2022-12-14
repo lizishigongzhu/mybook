@@ -3,6 +3,7 @@ package com.mybook.service;
 import com.mybook.base.BaseService;
 import com.mybook.dao.UserMapper;
 import com.mybook.model.UserModel;
+import com.mybook.query.UserQuery;
 import com.mybook.utils.*;
 import com.mybook.vo.User;
 import org.apache.commons.lang3.StringUtils;
@@ -11,13 +12,20 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Map;
 
 @Service
 public class UserService extends BaseService<User,Integer> {
     @Resource
     private UserMapper userMapper;
 
-
+    /**
+     * 多条件查询⽤户数据
+     */
+    @Override
+    public Map<String, Object> queryUserByParams(UserQuery userQuery) {
+        return null;
+    }
 
     /**
      * 添加用户信息
