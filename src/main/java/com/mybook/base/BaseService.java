@@ -2,6 +2,9 @@ package com.mybook.base;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mybook.dao.UserMapper;
+import com.mybook.query.UserQuery;
+import com.mybook.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 

@@ -1,68 +1,55 @@
 package com.mybook.controller;
 
+import com.mybook.base.BaseController;
 import com.mybook.base.ResultInfo;
-import com.mybook.query.UserQuery;
+import com.mybook.model.UserModel;
 import com.mybook.service.UserService;
+import com.mybook.utils.LoginUserUtil;
 import com.mybook.vo.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class UserController {
+@RequestMapping("user")
+public class UserController extends BaseController {
     @Resource
     private UserService userService;
 
-    /**
-     * 进⼊⽤户⻚⾯
-     */
-    @RequestMapping("user/index")
-    public String index(){
-        return "user/user";
-    }
-
 
     /**
-     *查询⽤户数据
+     * 用户添加
      */
-    @RequestMapping("user/list")
+    @PostMapping("add")
     @ResponseBody
-    public Map<String, Object> selectUserInfo(UserQuery userQuery) {
-        return userService.selectUserInfo(userQuery);
+    public ResultInfo addUser(User user){
+        userService.addUser(user);
+        return success("用户添加成功");
     }
 
     /**
-     * 添加⽤户
+     * 用户修改
      */
-    @RequestMapping("user/save")
+    @PostMapping("updateUser")
     @ResponseBody
-    public ResultInfo saveUser(User user) {
-        userService.saveUser(user);
-        return saveUser(用户添加成功);
-    }
-
-
-
-    /**
-     * 更新⽤户
-     */
-    @RequestMapping("user/update")
-    @ResponseBody
-    public ResultInfo updateUser(User user) {
+    public ResultInfo updateUser(User user){
         userService.updateUser(user);
-        return success("⽤户更新成功！");
+        return success("用户修改成功");
     }
 
     /**
-     * 删除⽤户
+     * 用户删除
      */
-    @RequestMapping("delete")
+    @DeleteMapping("deleteUser")
     @ResponseBody
-    public ResultInfo deleteUser(Integer[] ids){
-        userService.deleteBatch(ids);
-        return success("⽤户记录删除成功");
+    public ResultInfo deleteUser(Integer uId){
+        userService.deleteUser(uId);
+        return success("用户删除成功");
     }
+
 }
+

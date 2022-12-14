@@ -5,4 +5,5 @@ import com.mybook.vo.User;
 
 public interface UserMapper extends BaseMapper<User,Integer> {
 
+    User queryUserByName(String uName);
 }

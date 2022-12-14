@@ -125,4 +125,6 @@
       u_head = #{uHead,jdbcType=VARCHAR}
     where u_id = #{uId,jdbcType=INTEGER}
   </update>
+
+
 </mapper>
