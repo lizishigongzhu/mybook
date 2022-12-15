@@ -1,3 +1,3 @@
 # mybook
 git@github.com:lizishigongzhu/mybook.git
-真帅
+校园图书管理系统
